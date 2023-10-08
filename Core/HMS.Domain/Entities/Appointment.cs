@@ -9,10 +9,12 @@ namespace HMS.Domain.Entities
 {
     public class Appointment:BaseEntity
     {
-        public int DoctorId { get; set; }
         public string Number { get; set; }
         public string Type { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
+
+        public int DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
     }
 }

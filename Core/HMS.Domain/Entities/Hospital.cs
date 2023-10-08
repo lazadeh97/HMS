@@ -14,5 +14,8 @@ namespace HMS.Domain.Entities
         public string Type { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
+
+        public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual ICollection<Nurse> Nurses { get; set; }
     }
 }
