@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HMS.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class create_entities : Migration
+    public partial class db_create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

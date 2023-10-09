@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HMS.Persistence.Migrations
 {
     [DbContext(typeof(HMSDbContext))]
-    [Migration("20231008203459_create_entities")]
-    partial class create_entities
+    [Migration("20231009081257_db_create")]
+    partial class db_create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

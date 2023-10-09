@@ -14,7 +14,8 @@ namespace HMS.Persistence
         public HMSDbContext CreateDbContext(string[] args)
         {
             DbContextOptionsBuilder<HMSDbContext> optionsBuilder = new();
-            optionsBuilder.UseNpgsql(Configuration.ConnectionString);
+            optionsBuilder.UseSqlServer(Configuration.ConnectionString);
+
             return new(optionsBuilder.Options);
         }
     }
