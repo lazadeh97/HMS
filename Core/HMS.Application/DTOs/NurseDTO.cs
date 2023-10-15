@@ -1,13 +1,12 @@
-﻿using HMS.Domain.Entities.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HMS.Domain.Entities
+namespace HMS.Application.DTOs
 {
-    public class Nurse:BaseEntity
+    public class NurseDTO
     {
         public string Name { get; set; }
         public int DutyHour { get; set; }
@@ -18,6 +17,5 @@ namespace HMS.Domain.Entities
         public string Address { get; set; }
 
         public Guid HospitalId { get; set; }
-        public Hospital Hospital { get; set; }
     }
 }
