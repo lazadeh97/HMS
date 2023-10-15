@@ -37,8 +37,6 @@ namespace HMS.Persistence
 
             services.AddScoped<IPatientReadRepository, PatientReadRepository>();
             services.AddScoped<IPatientWriteRepository, PatientWriteRepository>();
-
-
         }
     }
 }
