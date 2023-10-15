@@ -17,7 +17,7 @@ namespace HMS.Domain.Entities
         public string Password { get; set; }
         public string Address { get; set; }
 
-        public int HospitalId { get; set; }
+        //public int HospitalId { get; set; }
         public Hospital Hospital { get; set; }
     }
 }

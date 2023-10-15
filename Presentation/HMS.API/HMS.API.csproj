@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\HMS.Application\HMS.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\HMS.Infrastructure\HMS.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\HMS.Persistence\HMS.Persistence.csproj" />
   </ItemGroup>
 
