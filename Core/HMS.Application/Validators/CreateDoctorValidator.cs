@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace HMS.Application.Validators
 {
-    public class CreateAppointmentValidator : AbstractValidator<AppointmentsDTO>
+    public class CreateDoctorValidator:AbstractValidator<DoctorDTO>
     {
-        public CreateAppointmentValidator()
+        public CreateDoctorValidator()
         {
-            RuleFor(a => a.Number).NotEmpty().NotNull().WithMessage("Please enter number! It can't be Empty or Null");
+            RuleFor(d => d.Email).EmailAddress().WithMessage("Please enter a valid email!");
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿using HMS.Application.Repositories;
+using HMS.Application.Services.Interfaces;
+using HMS.Application.Services;
 using HMS.Persistence.Contexts;
+using HMS.Persistence.Repositories;
+using HMS.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +24,9 @@ namespace HMS.Persistence
                     options.UseSqlServer(Configuration.ConnectionString,
                     providerOptions => providerOptions.EnableRetryOnFailure()));
 
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+
             services.AddScoped<IAppointmentReadRepository, AppointmentReadRepository>();
             services.AddScoped<IAppointmentWriteRepository, AppointmentWriteRepository>();
 
@@ -36,7 +43,7 @@ namespace HMS.Persistence
             services.AddScoped<INurseWriteRepository, NurseWriteRepository>();
 
             services.AddScoped<IPatientReadRepository, PatientReadRepository>();
-            services.AddScoped<IPatientWriteRepository, PatientWriteRepository>();
+            services.AddScoped<IPatientWriteRepository, PatientWriteRepository>();        
         }
     }
 }
