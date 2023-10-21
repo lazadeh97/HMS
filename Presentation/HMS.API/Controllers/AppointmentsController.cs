@@ -43,7 +43,7 @@ namespace HMS.API.Controllers
             var appointment = await _appointmentService.GetByIdAsync(id);
             if (appointment == null)
             {
-                return null;
+                return Enumerable.Empty<AppointmentsDTO>();
             }
             return new List<AppointmentsDTO> { appointment };
         }
