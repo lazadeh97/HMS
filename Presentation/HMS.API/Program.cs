@@ -13,7 +13,7 @@ builder.Host.UseSerilog((context, configuration)
 builder.Services.AddPersistenceServices();
 builder.Services.AddControllers()
     .AddFluentValidation(configuration => 
-    configuration.RegisterValidatorsFromAssemblyContaining<CreateAppointmentValidator>());
+    configuration.RegisterValidatorsFromAssemblyContaining<AppointmentValidator>());
 
 
 builder.Services.AddAutoMapper(typeof(CustomProfile));

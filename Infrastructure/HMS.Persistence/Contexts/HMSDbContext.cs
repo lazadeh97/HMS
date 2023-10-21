@@ -21,6 +21,15 @@ namespace HMS.Persistence.Contexts
         public DbSet<Nurse> Nurses { get; set; }
         public DbSet<Patient> Patients { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Doctor)
+                .WithMany(p => p.Appointments)
+                .HasForeignKey(a => a.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
         //public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         //{
         //    var datas = ChangeTracker.Entries<BaseEntity>();
@@ -33,7 +42,7 @@ namespace HMS.Persistence.Contexts
         //            EntityState.Modified => entity.Entity.UpdateDate = DateTime.UtcNow,
         //        };
         //    }
-     
+
         //    return await base.SaveChangesAsync(cancellationToken);
         //}
     }

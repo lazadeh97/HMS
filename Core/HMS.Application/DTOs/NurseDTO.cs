@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HMS.Application.DTOs
 {
-    public class NurseDTO
+    public class NurseDTO:BaseDTO
     {
         public string Name { get; set; }
         public int DutyHour { get; set; }

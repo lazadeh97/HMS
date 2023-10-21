@@ -10,11 +10,11 @@ namespace HMS.Application.Services.Interfaces
 {
     public interface IGenericService<TDTO, TEntity> where TDTO : BaseDTO where TEntity : BaseEntity, new()
     {
-        Task<TDTO> GetByIdAsync(string id);
+        Task<TDTO> GetByIdAsync(Guid id);
         Task<IEnumerable<TDTO>> GetAllAsync();
 
         Task<TDTO> Create(TDTO entity);
         Task<TDTO> Update(TDTO entity);
-        Task<TDTO> DeleteByIdAsync(string id);
+        Task<TDTO> DeleteByIdAsync(Guid id);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HMS.Application.DTOs
 {
-    public class AppointmentsDTO
+    public class AppointmentsDTO:BaseDTO
     {
         public string Number { get; set; }
         public string Type { get; set; }

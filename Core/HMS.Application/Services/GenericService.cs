@@ -33,7 +33,7 @@ namespace HMS.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<TDTO> DeleteByIdAsync(string id)
+        public Task<TDTO> DeleteByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -49,9 +49,9 @@ namespace HMS.Application.Services
             return _mapper.Map<IEnumerable<TDTO>>(entitylist);
         }
 
-        public async Task<TDTO> GetByIdAsync(string id)
+        public async Task<TDTO> GetByIdAsync(Guid id)
         {
-            var exsitingEntity = await _genericRepository.GetByIdAsync(id);
+            var exsitingEntity = await _genericRepository.GetByIdAsync(id.ToString());
             return _mapper.Map<TDTO>(exsitingEntity);
         }    
     }
