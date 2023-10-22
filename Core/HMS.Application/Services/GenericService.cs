@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using Abp.Domain.Entities;
+using AutoMapper;
 using HMS.Application.DTOs;
 using HMS.Application.Services.Interfaces;
 using HMS.Domain.Entities.Common;
 using HMS.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,19 +30,28 @@ namespace HMS.Application.Services
             return _mapper.Map<TDTO>(addedEntity);
 
         }
-        public Task<TDTO> Update(TDTO entity)
+        public async Task<TDTO> Update(TDTO entity)
         {
-            throw new NotImplementedException();
+
+            var existingEntity = await _genericRepository.GetByIdAsync(entity.Id.ToString());
+            var updatedEntity = _mapper.Map<TEntity>(entity);
+            updatedEntity.UpdateDate = existingEntity.UpdateDate;
+
+            if (existingEntity == null)
+            {
+                throw new EntityNotFoundException("Entity not found.");
+            }
+
+            await _genericRepository.Update(updatedEntity);
+
+            return _mapper.Map<TDTO>(updatedEntity);
         }
 
-        public Task<TDTO> DeleteByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<TDTO> DeleteByIdAsync(int id)
+        public async Task<TDTO> DeleteByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var deletedItem = await _genericRepository.DeleteByIdAsync(id.ToString());
+            return _mapper.Map<TDTO>(deletedItem);
         }
 
         public async Task<IEnumerable<TDTO>> GetAllAsync()

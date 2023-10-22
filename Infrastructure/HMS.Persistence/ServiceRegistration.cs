@@ -24,6 +24,8 @@ namespace HMS.Persistence
                     options.UseSqlServer(Configuration.ConnectionString,
                     providerOptions => providerOptions.EnableRetryOnFailure()));
 
+
+
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));            
         }

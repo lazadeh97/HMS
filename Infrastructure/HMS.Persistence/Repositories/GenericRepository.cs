@@ -1,4 +1,5 @@
-﻿using HMS.Domain.Entities.Common;
+﻿using HMS.Application.DTOs;
+using HMS.Domain.Entities.Common;
 using HMS.Persistence.Contexts;
 using HMS.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +28,19 @@ namespace HMS.Persistence.Repositories
             return entity;
         }
 
-        public Task<TEntity> DeleteByIdAsync(string id)
+        public async Task<TEntity> DeleteByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var existingEntity = await _entities.FirstOrDefaultAsync(x => x.Id == Guid.Parse(id));
+            if (existingEntity != null)
+            {
+                _entities.Remove(existingEntity);
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                return (TEntity)Enumerable.Empty<TEntity>();
+            }
+            return existingEntity;
         }
 
         public IQueryable<TEntity> GetAll()
@@ -40,13 +51,20 @@ namespace HMS.Persistence.Repositories
 
         public async Task<TEntity> GetByIdAsync(string id)
         {
-            var item = await _entities.FirstOrDefaultAsync(x => x.Id == Guid.Parse(id));
-            return item;
+            var entity = await _entities.FirstOrDefaultAsync(x => x.Id == Guid.Parse(id));
+            if (entity == null)
+            {
+                return (TEntity)Enumerable.Empty<TEntity>();
+            }
+            return entity;
         }
 
-        public Task<TEntity> Update(TEntity entity)
+        public async Task<TEntity> Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbContext.ChangeTracker.Clear();
+            _entities.Update(entity);        
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
     }
 }
