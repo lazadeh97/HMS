@@ -73,8 +73,6 @@ namespace HMS.API.Controllers
             return Ok(response);
         }
 
-        //// PUT: api/Appointments/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
         //public async Task<IActionResult> PutAppointment(Guid id, Appointment appointment)
         //{
