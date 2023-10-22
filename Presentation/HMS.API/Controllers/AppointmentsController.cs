@@ -11,6 +11,7 @@ using HMS.Application.Services.Interfaces;
 using HMS.Application.DTOs;
 using HMS.Application.Services;
 using NuGet.Protocol;
+using AutoMapper;
 
 namespace HMS.API.Controllers
 {
@@ -20,12 +21,15 @@ namespace HMS.API.Controllers
     {
         private readonly IGenericService<AppointmentsDTO, Appointment> _appointmentService;
         private readonly IGenericService<DoctorDTO, Doctor> _doctorService;
+        private readonly IMapper _mapper;
 
         public AppointmentsController(IGenericService<AppointmentsDTO, Appointment> appointmentService,
-            IGenericService<DoctorDTO, Doctor> doctorService)
+            IGenericService<DoctorDTO, Doctor> doctorService,
+            IMapper mapper)
         {
             _appointmentService = appointmentService;
             _doctorService = doctorService;
+            _mapper = mapper;
         }
 
         // GET: api/Appointments
@@ -48,6 +52,27 @@ namespace HMS.API.Controllers
             return new List<AppointmentsDTO> { appointment };
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(AppointmentsDTO appointmentsDTO)
+        {
+            if (appointmentsDTO.DoctorId == Guid.Empty)
+            {
+                return BadRequest("Doctor information is required.");
+            }
+
+            var doctor = await _doctorService.GetByIdAsync(appointmentsDTO.DoctorId);
+            if (doctor == null)
+            {
+                return NotFound("Doctor not found.");
+            }
+            //var doctorDto = _mapper.Map<DoctorDTO>(doctor);
+            //appointmentsDTO.Doctor = doctorDto;
+
+            var response = await _appointmentService.Create(appointmentsDTO);
+
+            return Ok(response);
+        }
+
         //// PUT: api/Appointments/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
@@ -58,7 +83,7 @@ namespace HMS.API.Controllers
         //        return BadRequest();
         //    }
 
-        //    _context.Entry(appointment).State = EntityState.Modified;
+        //    _appointmentService.Entry(appointment).State = EntityState.Modified;
 
         //    try
         //    {
